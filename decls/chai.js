@@ -13,7 +13,6 @@ declare module "chai" {
         static isNull        (x: any, m: ?string) : void;
         static isNotNull     (x: any, m: ?string) : void;        
         static throws        (f:   F)             : void;
-        static fail          (m: ?string)         : void;
         static fail          (x: any, y: any, m: ?string)            : void;
         static strictEqual   (actual: any, expected: any, m: ?string): void;
         static deepEqual     (actual: any, expected: any, m: ?string): void; // TODO: update in archetype
