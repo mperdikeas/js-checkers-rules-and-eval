@@ -13,14 +13,20 @@ if (!global._babelPolyfill) // https://github.com/s-panferov/awesome-typescript-
 // ... will print 'undefined' without the the babel-polyfill being required.
 
 
+
+import {Piece, Man, King, Board} from './checkers.js';
+
+exports.Piece = Piece;
+exports.Man   = Man;
+exports.King  = King;
+exports.Board = Board;
+
+
+
+
 /*
-import {Point, between, foo} from './point.js';
-
-exports.Point   = Point;
-exports.between = between;
-exports.foo     = foo;
-
 import type {DemonstrateUseOfExportedTypes} from './point.js';
 
 export type {DemonstrateUseOfExportedTypes};
+
 */

@@ -15,13 +15,53 @@ if (!global._babelPolyfill) // https://github.com/s-panferov/awesome-typescript-
 //
 // ... will print 'undefined' without the the babel-polyfill being required.
 
-
 import {assert} from 'chai';
 
-function ASNU<T>(x: T): T {
-    assert.isTrue(x!==null);
+ // ASsert Not Undefined
+function ASNU<T>(x: T): T { 
+    assert.isFalse(x===undefined);
     return x;
 }
 
+function IBlowUp<T>(x: T, context?: ?string = null): T {
+    const TEXT: string = 'you are not supposed to have reached the line that calls me';
+    let msg: ?string = null;
+    if (context==null) {
+        ASNU(context);        
+        msg = TEXT;
+    } else {
+        msg = `${TEXT}, context is: [${context}]`;
+    }
+    assert.fail(0, 0, msg);
+    return x;
+}
 
-exports.ASNU = ASNU;
+function areDeeplyEqual<T>(as: Array<T>, bs: Array<T>) {
+    // if the other bs is a falsy value, return
+    if (!bs)
+        return false;
+
+    // compare lengths - can save a lot of time
+    if (as.length != bs.length)
+        return false;
+
+    for (var i = 0, l=as.length; i < l; i++) {
+        // Check if we have nested arrays
+  //      console.log(`comparing: [${as[i]}] with: [${bs[i]}]`);
+        if (as[i] instanceof Array && bs[i] instanceof Array) {
+            // recurse into the nested arrays
+            if (!as[i].equals(bs[i]))
+                return false;
+        }
+        else if (as[i] != bs[i]) {
+            // Warning - two different object instances will never be equal: {x:20} != {x:20}
+//            console.log(`found: [${as[i]}] to be unequal to: [${bs[i]}]`);
+            return false;
+        }
+    }
+    return true;
+}   
+
+exports.ASNU    = ASNU;
+exports.IBlowUp = IBlowUp
+exports.areDeeplyEqual = areDeeplyEqual
