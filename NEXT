@@ -1,0 +1,4 @@
+I am left to provide positional evaluation masks for the 8x8 board size
+
+I should also provide a way for the library to output / show intermediate board positions
+(as part of a multi-jump move) which the GUI of my game would have to render if only briefly.

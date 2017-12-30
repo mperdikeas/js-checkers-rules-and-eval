@@ -23,7 +23,6 @@ function sort(x, y) {
 
 }
 describe('Moves', function () {
-    if (false)
     describe('simple slides', function () {
         it('case 1' , function () {
             const s: string =

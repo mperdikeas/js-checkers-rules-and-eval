@@ -1,7 +1,7 @@
 // @flow
 require('source-map-support').install();
 import 'babel-polyfill';
-  import {assert} from 'chai';
+import {assert} from 'chai';
 import AssertionError  from 'assertion-error';
 assert.isOk(AssertionError);
 
@@ -21,8 +21,6 @@ assert.isOk(Board);
 describe('Board', function () {
     describe('toString and fromString and various other methods', function () {
         describe('malformed string cases', function() {
-
-            // TODO: when I update the geometry package, I should write even simpler board tests with only a single cell (currently, and weirdly, not allowed)
             it('case 1' , function () {
                 try {
                     boardFromString(
@@ -38,7 +36,7 @@ xxx
                     assert.strictEqual(e.offendingLine, 1);
                 }
             });
-            it('case 1' , function () {
+            it('case 2' , function () {
                 try {
                     boardFromString(
 `
@@ -57,7 +55,7 @@ mm
                         throw e;
                 }
             });
-            it('case 2' , function () {
+            it('case 3' , function () {
                 try {
                     boardFromString(
 `
@@ -75,8 +73,53 @@ m.
                         throw e;
                 }
             });
+            it('case 4' , function () {
+                try {
+                    boardFromString(
+`
+x
+`);
+                    assert.fail(0, 0, 'error not thrown as expected');
+                } catch (e) {
+                    if (e instanceof BoardSpecificationError) {
+                        assert.isTrue( e instanceof UnrecognizedCharacter);
+                        assert.strictEqual(e.lineNum, 0);
+                        assert.strictEqual(e.linePos, 0);
+                        assert.strictEqual(e.offendingCharacter, 'x');
+                    } else
+                        throw e;
+                }
+            });
+            it('case 5' , function () {
+                try {
+                    boardFromString(
+`
+....x..
+`);
+                    assert.fail(0, 0, 'error not thrown as expected');
+                } catch (e) {
+                    if (e instanceof BoardSpecificationError) {
+                        assert.isTrue( e instanceof UnrecognizedCharacter);
+                        assert.strictEqual(e.lineNum, 0);
+                        assert.strictEqual(e.linePos, 4);
+                        assert.strictEqual(e.offendingCharacter, 'x');
+                    } else
+                        throw e;
+                }
+            });                        
         });
         describe('correct boards', function() {
+            it('case 0 (totally empty 1x1 board)' , function () {
+                const s: string =
+`
+.
+`;
+                const b: Board = boardFromString(s);
+                assert.strictEqual(b.toString(), s.trim());
+                for (let i = 0; i < b.width(); i++)
+                    for (let j = 0; j < b.width(); j++)
+                        assert.isTrue(b.isCellEmpty(new Point(i, j)));
+            });            
             it('case 1 (totally empty)' , function () {
                 const s: string =
 `

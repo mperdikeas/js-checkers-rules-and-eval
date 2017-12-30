@@ -1,7 +1,7 @@
 {
-  "name": "checkers-rules-and-eval-for-the-minmax-wt-alphabeta-pruning-package",
-  "version": "0.0.1",
-  "description": "Game rules and board evaluation for the game of Checkers, as expected by the minmax engine of the [minmax-wt-alphabeta-pruning] package",
+  "name": "checkers-game-rules-and-eval",
+  "version": "0.9.0",
+  "description": "Rules and board evaluation for the game of Checkers / Draughts, as expected by the minmax engine of the [minmax-wt-alphabeta-pruning] package",
   "main": "lib/index.js",
   "scripts": {
     "clean-logs": "rm -fr npm-debug.log.*",

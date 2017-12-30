@@ -108,6 +108,12 @@ class PieceOnBoard {
         const jumpLandingPoints: Array<Point> = this.translateOffsets(this.pc.possibleJumpOffsets());
         return jumpLandingPoints.filter(jumpTo=>this.b.isJumpValid(this.p, jumpTo));
     }
+    canMove(): boolean {
+        if (this.possibleSlides().length>0)
+            return true;
+        else
+            return (this.possibleJumps().length>0);
+    }
 }
 
 class Piece {
@@ -270,6 +276,19 @@ class Board {
             if (this.pieces[i].p.equals(p))
                 return this.pieces[i];
         return null;
+    }
+    allPiecesOfSide(lightSide: boolean): Array<PieceOnBoard> {
+        const rv: Array<PieceOnBoard> = [];
+        for (let i = 0; i < this.rect.widthAsCellSystem(); i++)
+            for (let j = 0; j < this.rect.heightAsCellSystem() ; j++) {
+                const piece: ?PieceOnBoard = this.pieceOnCell(new Point(i, j));
+                if (piece!=null) {
+                    if (piece.pc.isLightSide === lightSide)
+                        rv.push(piece);
+                } else
+                    ASNU(piece);
+            }
+        return rv;
     }
     pieceOnCellAndIndex(p: Point): PieceOnBoardAndIndex {
         assert.isTrue(this.pointLiesInside(p));
@@ -592,6 +611,8 @@ function boardFromString(_s: string): Board {
         return IBlowUp(new Board(0, 0, []), "at this point it's impossible for the board to be null");
     }
 }
+
+
 
 // private exports (only used by testing code):
 exports.BoardSpecificationError = BoardSpecificationError;
