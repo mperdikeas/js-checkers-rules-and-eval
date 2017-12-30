@@ -232,9 +232,6 @@ function pieceFromChar(s: string): Piece {
 }
 
 
-// TODO: upgrade to the latest flow bin
-
-
 export type PieceOnBoardAndIndex = Exact<{piece: PieceOnBoard, index: number}>
 
 /**

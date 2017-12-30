@@ -28,7 +28,7 @@ import type {Exact} from 'flow-common-types';
 
 
 import type {
-    IGameRules, EvaluateFT, ListMovesFT, MinMaxFT, TMinMaxResult
+    IGameRules, EvaluateFT, ListMovesFT, MinMaxFT, TMinMaxResult, NextStateFT
 } from 'minmax-wt-alpha-beta-pruning';
 
 import {ASNU, IBlowUp} from './util.js';
@@ -73,7 +73,7 @@ function nextState(gs: GameState, pmvp: PointAndMovePath): GameState {
     return new GameState(newGameBoard, !gs.lightSideMoving);
 }
 
-(nextState: (GameState, PointAndMovePath)=>GameState) // TODO: import new exported type NextStateFT from minmax
+(nextState: NextStateFT<GameState, PointAndMovePath>)
 
 function listMoves(gs: GameState): Array<PointAndMovePath> {
     const rv: Array<PointAndMovePath> = [];
