@@ -39,7 +39,7 @@ import {GameState} from './checkers-adaptation-to-minmax.js';
 
 /*
 
-This evaluator function only evaluates positions in the standard English Checkers 8X8 board.
+This evaluator function evaluates positions in the standard English Checkers 8X8 board only.
 The below diagram shows the starting position. 'X' signs mark where Men go. Observe that
 each side has an empty square on its bottom right corner. Empty squares are traditionally
 light coloured as both sides move on the dark squares (this library has no concept of the
